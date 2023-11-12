@@ -96,13 +96,13 @@ namespace image_segmentation_k_means
                             pixelColor = Color.Red;
                             break;
                         case 1:
-                            pixelColor = Color.Green;
+                            pixelColor = Color.DarkGreen;
                             break;
                         case 2:
-                            pixelColor = Color.Blue;
+                            pixelColor = Color.Cyan;
                             break;
                         case 3:
-                            pixelColor = Color.Magenta;
+                            pixelColor = Color.DarkMagenta;
                             break;
                         default:
                             pixelColor = Color.Black;
@@ -114,8 +114,8 @@ namespace image_segmentation_k_means
                     bitmap.SetPixel(x, y, pixelColor);
                 }
             }
-
-            using (FileStream stream2 = new FileStream(filename, FileMode.Create))
+            
+            using (FileStream stream2 = new FileStream("segmentedpic.png", FileMode.Create))
             {
                 bitmap.Save(stream2, ImageFormat.Png);
             }
