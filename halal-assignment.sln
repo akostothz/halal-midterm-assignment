@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "path-finding-gp", "path-fin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "image-segmentation-k-means", "image-segmentation-k-means\image-segmentation-k-means.csproj", "{8E3FC94B-617F-4B35-B16C-30B076AA2121}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "polygon-problem-hill-climbing", "polygon-problem-hill-climbing\polygon-problem-hill-climbing.csproj", "{9B28FBA7-B5AC-47E7-A3F6-08E104724BEE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "polygon-problem-hill-climbing-stochastic", "polygon-problem-hill-climbing\polygon-problem-hill-climbing-stochastic.csproj", "{9B28FBA7-B5AC-47E7-A3F6-08E104724BEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
