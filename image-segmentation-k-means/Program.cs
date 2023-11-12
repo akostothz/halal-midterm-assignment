@@ -7,6 +7,5 @@ img.LoadImageFromFile("crazy.png");
 KMeansSegmentation kmeans = new KMeansSegmentation(4);
 
 kmeans.RunKMeans(img);
-;
+
 img.SavePixClusterToFile("crazy.png");
-;
