@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "halal-assignment", "halal-assignment\halal-assignment.csproj", "{A207592F-83D3-4348-9C02-80925ECEE3BC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "path-finding-gp", "path-finding-gp\path-finding-gp.csproj", "{4DC607A1-C312-4009-A6C7-3EE54F2E42ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "image-segmentation-k-means", "image-segmentation-k-means\image-segmentation-k-means.csproj", "{8E3FC94B-617F-4B35-B16C-30B076AA2121}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A207592F-83D3-4348-9C02-80925ECEE3BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A207592F-83D3-4348-9C02-80925ECEE3BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A207592F-83D3-4348-9C02-80925ECEE3BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A207592F-83D3-4348-9C02-80925ECEE3BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DC607A1-C312-4009-A6C7-3EE54F2E42ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DC607A1-C312-4009-A6C7-3EE54F2E42ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DC607A1-C312-4009-A6C7-3EE54F2E42ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DC607A1-C312-4009-A6C7-3EE54F2E42ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E3FC94B-617F-4B35-B16C-30B076AA2121}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E3FC94B-617F-4B35-B16C-30B076AA2121}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E3FC94B-617F-4B35-B16C-30B076AA2121}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E3FC94B-617F-4B35-B16C-30B076AA2121}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {97EB6A26-7BE4-4BAE-B2BA-6877890BDF50}
+	EndGlobalSection
+EndGlobal
