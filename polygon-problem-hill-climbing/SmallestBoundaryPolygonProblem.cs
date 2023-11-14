@@ -15,16 +15,21 @@ namespace polygon_problem_hill_climbing
         double errorMargin;
         double t;
         double epsilon;
+        double change_value;
+        double stop_fitness_diff;
+        double stop_fitness_max_cnt;
+        double stop_fitness_cnt;
 
-        public SmallestBoundaryPolygonProblem(double epsilon, double t, double errorMargin)
+        public SmallestBoundaryPolygonProblem(double epsilon, double errorMargin, float stop_fitness_diff, float stop_fitness_max_cnt)
         {
             this.Points = new List<Point>();
             this.P = new List<Point>();
             this.epsilon = epsilon;
-            this.t = t;
             this.errorMargin = errorMargin;
             this.p_fitness = double.MaxValue;
             this.last_fitness = double.MaxValue;
+            this.stop_fitness_diff = stop_fitness_diff;
+            this.stop_fitness_max_cnt = stop_fitness_max_cnt;
         }
 
         public void RunHC_Stachostic(string filename)
@@ -35,6 +40,7 @@ namespace polygon_problem_hill_climbing
 
         void Optimize(string filename)
         {
+            stop_fitness_cnt = 0;
             t = 1;
             while (!StopCondition())
             {
@@ -99,11 +105,13 @@ namespace polygon_problem_hill_climbing
 
         bool StopCondition()
         {
-            if ((last_fitness - p_fitness) / last_fitness <= errorMargin)
-            {
-                t--;
-            }
-            return (t <= 0);
+            if ((last_fitness != double.MaxValue) && (last_fitness - p_fitness) < stop_fitness_diff)
+                stop_fitness_cnt++;
+            else
+                stop_fitness_cnt = 0;
+            last_fitness = p_fitness;
+
+            return stop_fitness_cnt > stop_fitness_max_cnt;
         }
 
         double DistanceFromLine(Point lp1, Point lp2, Point p)
