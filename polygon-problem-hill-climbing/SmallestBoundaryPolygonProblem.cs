@@ -8,7 +8,6 @@ namespace polygon_problem_hill_climbing
 {
     public class SmallestBoundaryPolygonProblem
     {
-        List<Point> Q;
         List<Point> P;
         List<Point> Points;
         double p_fitness;
@@ -19,35 +18,68 @@ namespace polygon_problem_hill_climbing
 
         public SmallestBoundaryPolygonProblem(double epsilon, double t, double errorMargin)
         {
-            Points = new List<Point>();
-            Q = new List<Point>();
-            P = new List<Point>();
+            this.Points = new List<Point>();
+            this.P = new List<Point>();
             this.epsilon = epsilon;
             this.t = t;
             this.errorMargin = errorMargin;
-            p_fitness = double.MaxValue;
-            last_fitness = double.MaxValue;
+            this.p_fitness = double.MaxValue;
+            this.last_fitness = double.MaxValue;
         }
 
         public void RunHC_Stachostic(string filename)
         {
             LoadPointsFromFile(filename);
-            Optimize();
+            Optimize(filename);
         }
 
         void LoadPointsFromFile(string filename)
         {
+            using (StreamReader reader = new StreamReader(filename))
+            {
+                while (!reader.EndOfStream)
+                {
+                    string[] values = reader.ReadLine().Split(';');
 
+                    if (values.Length == 2)
+                    {
+                        Point pnt = new Point(double.Parse(values[0]), double.Parse(values[1]));
+                        Points.Add(pnt);
+                    }
+                }
+            }
         }
 
         public void SavePointsToFile(string filename, List<Point> pointVector)
         {
-
+            using (StreamWriter writer = new StreamWriter(filename))
+            {
+                foreach (Point pnt in pointVector)
+                {
+                    writer.WriteLine($"{pnt.x}\t{pnt.y}");
+                }
+            }
         }
 
-        void Optimize()
+        void Optimize(string filename)
         {
-
+            while (!StopCondition())
+            {
+                List<Point> q = RandomNeighbour();
+                double q_fitness = Objective(q);
+                if (q_fitness < p_fitness)
+                {
+                    q = q.ToList();
+                    last_fitness = p_fitness;
+                    p_fitness = q_fitness;
+                    SavePointsToFile(filename, P);
+                }
+                t++;
+            }
+        }
+        List<Point> RandomNeighbour()
+        {
+            return null;
         }
 
         bool StopCondition()
