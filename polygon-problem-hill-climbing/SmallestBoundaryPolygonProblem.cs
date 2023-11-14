@@ -33,13 +33,33 @@ namespace polygon_problem_hill_climbing
             Optimize(filename);
         }
 
+        void Optimize(string filename)
+        {
+            t = 1;
+            while (!StopCondition())
+            {
+                List<Point> q = RandomNeighbour();
+
+                double q_fitness = Objective(q);
+                if (q_fitness < p_fitness)
+                {
+                    P = q.ToList();
+                    last_fitness = p_fitness;
+                    p_fitness = q_fitness;
+                    SavePointsToFile(P);
+                    Console.WriteLine($"Fitness: {q_fitness}");
+                }
+                t++;
+            }
+        }
+
         void LoadPointsFromFile(string filename)
         {
             using (StreamReader reader = new StreamReader(filename))
             {
                 while (!reader.EndOfStream)
                 {
-                    string[] values = reader.ReadLine().Split(';');
+                    string[] values = reader.ReadLine().Split(' ');
 
                     if (values.Length == 2)
                     {
@@ -50,9 +70,9 @@ namespace polygon_problem_hill_climbing
             }
         }
 
-        public void SavePointsToFile(string filename, List<Point> pointVector)
+        public void SavePointsToFile(List<Point> pointVector)
         {
-            using (StreamWriter writer = new StreamWriter(filename))
+            using (StreamWriter writer = new StreamWriter("log-" + epsilon + "-" + errorMargin, true))
             {
                 foreach (Point pnt in pointVector)
                 {
@@ -61,25 +81,20 @@ namespace polygon_problem_hill_climbing
             }
         }
 
-        void Optimize(string filename)
-        {
-            while (!StopCondition())
-            {
-                List<Point> q = RandomNeighbour();
-                double q_fitness = Objective(q);
-                if (q_fitness < p_fitness)
-                {
-                    q = q.ToList();
-                    last_fitness = p_fitness;
-                    p_fitness = q_fitness;
-                    SavePointsToFile(filename, P);
-                }
-                t++;
-            }
-        }
         List<Point> RandomNeighbour()
         {
-            return null;
+            List<Point> randomNeighborPoints = new List<Point>();
+
+            foreach (Point p in P)
+            {
+                double randomXModification = RNG.GenerateRandomDoubleWithBounds(-epsilon, epsilon);
+                double randomYModification = RNG.GenerateRandomDoubleWithBounds(-epsilon, epsilon);
+
+                Point newPoint = new Point(p.x + randomXModification, p.y + randomYModification);
+                randomNeighborPoints.Add(newPoint);
+            }
+
+            return randomNeighborPoints;
         }
 
         bool StopCondition()
