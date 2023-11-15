@@ -15,10 +15,10 @@ namespace polygon_problem_hill_climbing
         double errorMargin;
         double t;
         double epsilon;
-        double change_value;
         double stop_fitness_diff;
         double stop_fitness_max_cnt;
         double stop_fitness_cnt;
+        int RNN_counnter;
 
         public SmallestBoundaryPolygonProblem(double epsilon, double errorMargin, float stop_fitness_diff, float stop_fitness_max_cnt)
         {
@@ -30,6 +30,7 @@ namespace polygon_problem_hill_climbing
             this.last_fitness = double.MaxValue;
             this.stop_fitness_diff = stop_fitness_diff;
             this.stop_fitness_max_cnt = stop_fitness_max_cnt;
+            RNN_counnter = 0;
         }
 
         public void RunHC_Stachostic(string filename)
@@ -45,15 +46,19 @@ namespace polygon_problem_hill_climbing
             while (!StopCondition())
             {
                 List<Point> q = RandomNeighbour();
-
+                ;
                 double q_fitness = Objective(q);
+                ;
                 if (q_fitness < p_fitness)
                 {
+                    ;
                     P = q.ToList();
                     last_fitness = p_fitness;
+                    ;
                     p_fitness = q_fitness;
+                    ;
                     SavePointsToFile(P);
-                    Console.WriteLine($"Fitness: {q_fitness}");
+                    Console.WriteLine($"{RNN_counnter}. Fitness: {q_fitness}");
                 }
                 t++;
             }
@@ -78,7 +83,7 @@ namespace polygon_problem_hill_climbing
 
         public void SavePointsToFile(List<Point> pointVector)
         {
-            using (StreamWriter writer = new StreamWriter("log-" + epsilon + "-" + errorMargin, true))
+            using (StreamWriter writer = new StreamWriter("log-" + epsilon + "-" + errorMargin + ".txt", true))
             {
                 foreach (Point pnt in pointVector)
                 {
@@ -90,8 +95,8 @@ namespace polygon_problem_hill_climbing
         List<Point> RandomNeighbour()
         {
             List<Point> randomNeighborPoints = new List<Point>();
-
-            foreach (Point p in P)
+            RNN_counnter++;
+            foreach (Point p in Points)
             {
                 double randomXModification = RNG.GenerateRandomDoubleWithBounds(-epsilon, epsilon);
                 double randomYModification = RNG.GenerateRandomDoubleWithBounds(-epsilon, epsilon);
@@ -99,7 +104,7 @@ namespace polygon_problem_hill_climbing
                 Point newPoint = new Point(p.x + randomXModification, p.y + randomYModification);
                 randomNeighborPoints.Add(newPoint);
             }
-
+            ;
             return randomNeighborPoints;
         }
 
