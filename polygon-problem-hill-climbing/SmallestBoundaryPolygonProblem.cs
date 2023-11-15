@@ -47,7 +47,7 @@ namespace polygon_problem_hill_climbing
             {
                 List<Point> q = RandomNeighbour();
                 double q_fitness = Objective(q);
-                if (q_fitness < p_fitness)
+                if (q_fitness <= p_fitness)
                 {
 
                     P = q.ToList();
