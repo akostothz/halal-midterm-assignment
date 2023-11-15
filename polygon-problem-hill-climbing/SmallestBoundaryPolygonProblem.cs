@@ -46,17 +46,13 @@ namespace polygon_problem_hill_climbing
             while (!StopCondition())
             {
                 List<Point> q = RandomNeighbour();
-                ;
                 double q_fitness = Objective(q);
-                ;
                 if (q_fitness < p_fitness)
                 {
-                    ;
+
                     P = q.ToList();
                     last_fitness = p_fitness;
-                    ;
                     p_fitness = q_fitness;
-                    ;
                     SavePointsToFile(P);
                     Console.WriteLine($"{RNN_counnter}. Fitness: {q_fitness}");
                 }
@@ -104,7 +100,7 @@ namespace polygon_problem_hill_climbing
                 Point newPoint = new Point(p.x + randomXModification, p.y + randomYModification);
                 randomNeighborPoints.Add(newPoint);
             }
-            ;
+
             return randomNeighborPoints;
         }
 
