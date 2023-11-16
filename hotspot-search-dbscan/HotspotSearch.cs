@@ -23,12 +23,10 @@ namespace hotspot_search_dbscan
         public void DoHotspotSearch(string filename)
         {
             LoadPointsFromFile(filename);
-            ;
             var C = DBSCAN();
-            ;
             DrawClusters(C);
         }
-
+       
         List<List<Point>> DBSCAN()
         {
             var clusters = new List<List<Point>>();
@@ -36,31 +34,31 @@ namespace hotspot_search_dbscan
 
             foreach (var p in Points) //végigmegyünk az összes beolvasott ponton
             {
-                ;
-                if (/*!I.Contains(p)*/ p.isProcessed == false) //még nem lett feldolgozva
+
+                if (!ContainsPoint(I, p)) //még nem lett feldolgozva
                 {
                     var Q = GetNeighbors(p); //kiszedjük az összes szomszédját p-nek
-                    ;
+
                     if (Q.Count >= minPts) //p belső pont is
                     {
                         var R = new List<Point>(); //aktuális klaszter elemei
-                        foreach (var q in Q) //végigmegyünk a Q-ba kiszedett elemeken is
+
+                        for (int i = 0; i < Q.Count; i++)
                         {
-                            ;
-                            if (/*!I.Contains(q)*/ q.isProcessed == false) //ha még nem lett feldolgozva a pont
+                            if (!ContainsPoint(I, Q[i])) //ha még nem lett feldolgozva a pont
                             {
-                                //I.Add(q);
-                                q.SetProcessToTrue();
-                                R.Add(q);
-                                var D = GetNeighbors(q);
-                                ;
+                                I.Add(Q[i]); //hozzáadjuk a feldolgozott pontokhoz
+                                Q[i].SetProcessToTrue();
+                                R.Add(Q[i]);
+                                var D = GetNeighbors(Q[i]);
+
                                 if (D.Count >= minPts)
                                 {
                                     foreach (var d in D)
                                     {
-                                        Q.Add(d);
+                                        if (!ContainsPoint(Q, d))
+                                            Q.Add(d);
                                     }
-                                    ;
                                 }
                             }
                         }
@@ -68,8 +66,17 @@ namespace hotspot_search_dbscan
                     }
                 }
             }
-
             return clusters;
+        }
+
+        bool ContainsPoint(List<Point> list, Point p)
+        {
+            foreach (var point in list)
+            {
+                if (point.x.Equals(p.x) && point.y.Equals(p.y) && point.isProcessed.Equals(p.isProcessed))
+                    return true;
+            }
+            return false;
         }
 
         private List<Point> GetNeighbors(Point choosenPoint)
@@ -119,6 +126,7 @@ namespace hotspot_search_dbscan
 
         void DrawClusters(List<List<Point>> clusters)
         {
+            /*
             for (int i = 0; i < clusters.Count; i++) //végigmegyünk a klasztereken egyesével
             {
                 foreach (var point in clusters[i]) //majd a klaszter összes pontján
@@ -126,6 +134,8 @@ namespace hotspot_search_dbscan
                     point.SetColor(i); //és beállítjuk a különböző klasztereken belül a pontokat a megfelelő színükre
                 }
             }
+
+            ;
 
             //konzol magassága és szélességének beállítása
             double maxX = clusters.SelectMany(cluster => cluster.Select(point => point.x)).Max();
@@ -139,30 +149,39 @@ namespace hotspot_search_dbscan
 
             Console.Clear();
 
-            //klaszterek kirajzolása)
+            //klaszterek kirajzolása
 
-            foreach (var cluster in clusters)
+
+            foreach (var point in Points)
             {
-                foreach (var point in cluster)
+                Console.SetCursorPosition((int)point.x, (int)point.y);
+                Console.ForegroundColor = point.Color;
+                Console.Write("*");
+            }
+            */
+            for (int i = 0; i < clusters.Count; i++) //végigmegyünk a klasztereken egyesével
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine($"{i+1}. cluster: \n");
+                foreach (var point in clusters[i]) //majd a klaszter összes pontján
                 {
-                    Console.SetCursorPosition((int)point.x, (int)point.y);
+                    point.SetColor(i);
                     Console.ForegroundColor = point.Color;
-                    Console.Write("*");
+                    Console.WriteLine($"({point.x};{point.y})"); //és kiíratjuk a klasztereket
                 }
+                Console.WriteLine("\n");
+            }
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Points which does not fit into any cluster: \n");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            foreach (var p in Points.Where(x => x.Color == ConsoleColor.White)) //kiíratjuk azokat a pontokat, amelyek egyik klaszterbe sem kerültek bele
+            {
+
+                Console.WriteLine($"({p.x};{p.y})");
             }
 
             Console.ReadKey();
-        }
-    }
-
-    public static class RNG
-    {
-        static Random rnd;
-
-        public static double GenerateRandomDoubleWithBounds(double lowerBound, double upperBound)
-        {
-            rnd = new Random();
-            return rnd.NextDouble() * (upperBound - lowerBound) + lowerBound;
         }
     }
 
@@ -190,7 +209,7 @@ namespace hotspot_search_dbscan
             switch (clusterValue)
             {
                 case 0:
-                    this.Color = ConsoleColor.Red;
+                    this.Color = ConsoleColor.Magenta;
                     break;
                 case 1:
                     this.Color = ConsoleColor.DarkGreen;
@@ -209,6 +228,18 @@ namespace hotspot_search_dbscan
                     break;
                 case 6:
                     this.Color = ConsoleColor.Green;
+                    break;
+                case 7:
+                    this.Color = ConsoleColor.DarkCyan;
+                    break;
+                case 8:
+                    this.Color = ConsoleColor.DarkYellow;
+                    break;
+                case 9:
+                    this.Color = ConsoleColor.DarkBlue;
+                    break;
+                case 10:
+                    this.Color = ConsoleColor.DarkGray;
                     break;
                 default:
                     this.Color = ConsoleColor.White;
