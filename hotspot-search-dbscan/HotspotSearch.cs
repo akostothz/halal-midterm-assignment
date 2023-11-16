@@ -45,7 +45,7 @@ namespace hotspot_search_dbscan
                             if (!I.Contains(q)) //ha még nem lett feldolgozva a pont
                             {
                                 I.Add(q);
-                                q.SetProcessToTrue(); //ez lehet nem fog kelleni
+                                q.SetProcessToTrue(); // ((ez lehet nem fog kelleni))
                                 R.Add(q);
                                 var D = GetNeighbors(q);
                                 if (D.Count >= minPts)
@@ -70,7 +70,7 @@ namespace hotspot_search_dbscan
             var neighbors = new List<Point>();
             foreach (var point in Points)
             {
-                if (AreNeighbors(point, choosenPoint))
+                if (AreNeighboring(point, choosenPoint))
                 {
                     neighbors.Add(point);
                 }
@@ -79,11 +79,21 @@ namespace hotspot_search_dbscan
             return neighbors;
         }
 
-        bool AreNeighbors(Point p1, Point p2)
+        bool AreNeighboring(Point p1, Point p2)
         {
-            //ide kéne az egyenlet Evelintől
-            // p1-től p2 max epsilon távolságra lévő elem (hogy számolom ki, Pytagoras?)
+            double dist = DistanceFromPoint(p1, p2);
+            
+            if (dist <= epsilon)
+                return true;
             return false;
+        }
+
+        double DistanceFromPoint(Point p1, Point p2)
+        {
+            return Math.Sqrt(
+                Math.Pow((p2.x - p1.x), 2) +
+                Math.Pow((p2.y - p1.y), 2)
+                );
         }
 
         void LoadPointsFromFile(string filename)
