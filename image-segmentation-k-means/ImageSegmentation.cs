@@ -72,23 +72,6 @@ namespace image_segmentation_k_means
                     int index = y * width + x;
                     uint clusterValue = pixCluster[index];
 
-                    /*
-                     1. megoldas
-                     byte alpha = (byte)((clusterValue & 0xFF000000) >> 24);
-                    byte red = (byte)((clusterValue & 0x00FF0000) >> 16);
-                    byte green = (byte)((clusterValue & 0x0000FF00) >> 8);
-                    byte blue = (byte)(clusterValue & 0x000000FF);
-
-                    Color pixelColor = Color.FromArgb(alpha, red, green, blue);
-                     
-                     */
-
-                    /*
-                     2. megoldas
-                    Color pixelColor = Color.FromArgb((int)clusterValue);
-                     
-                     */
-
                     Color pixelColor;
                     switch (clusterValue)
                     {
@@ -109,8 +92,6 @@ namespace image_segmentation_k_means
                             break;
                     }
 
-
-                    Console.WriteLine("x: " + x + ";\t y: " + y + ";\t COLOR: " + pixelColor + ";\t clusterValue: " + clusterValue);
                     bitmap.SetPixel(x, y, pixelColor);
                 }
             }
@@ -123,7 +104,6 @@ namespace image_segmentation_k_means
 
         public void SetPixCluster(int x, int y, uint clusterIndex)
         {
-            Console.WriteLine("SetPixCluster: " + "x: " + x + ";\t y: " + y + ";\t clusterIndex: " + clusterIndex);
             int index = y * width + x;
             pixCluster[index] = clusterIndex;
         }

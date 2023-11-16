@@ -125,7 +125,7 @@ namespace hotspot_search_dbscan
 
         void SaveClustersToFile(List<List<Point>> clusters)
         {
-            using (StreamWriter writer = new StreamWriter("log-" + epsilon + "-" + minPts + ".txt", false))
+            using (StreamWriter writer = new StreamWriter("hotspotsearch-log-" + epsilon + "-" + minPts + ".txt", false))
             {
                 for (int i = 0; i < clusters.Count; i++) //végigmegyünk a klasztereken egyesével
                 {
