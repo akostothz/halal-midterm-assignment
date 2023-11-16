@@ -23,7 +23,9 @@ namespace hotspot_search_dbscan
         public void DoHotspotSearch(string filename)
         {
             LoadPointsFromFile(filename);
+            ;
             var C = DBSCAN();
+            ;
             DrawClusters(C);
         }
 
@@ -34,26 +36,31 @@ namespace hotspot_search_dbscan
 
             foreach (var p in Points) //végigmegyünk az összes beolvasott ponton
             {
-                if (!I.Contains(p)) //még nem lett feldolgozva
+                ;
+                if (/*!I.Contains(p)*/ p.isProcessed == false) //még nem lett feldolgozva
                 {
                     var Q = GetNeighbors(p); //kiszedjük az összes szomszédját p-nek
+                    ;
                     if (Q.Count >= minPts) //p belső pont is
                     {
                         var R = new List<Point>(); //aktuális klaszter elemei
-                        foreach (var q in Q) //végigmegyünk a Q-ba kiszedettelemeken is
+                        foreach (var q in Q) //végigmegyünk a Q-ba kiszedett elemeken is
                         {
-                            if (!I.Contains(q)) //ha még nem lett feldolgozva a pont
+                            ;
+                            if (/*!I.Contains(q)*/ q.isProcessed == false) //ha még nem lett feldolgozva a pont
                             {
-                                I.Add(q);
-                                q.SetProcessToTrue(); // ((ez lehet nem fog kelleni))
+                                //I.Add(q);
+                                q.SetProcessToTrue();
                                 R.Add(q);
                                 var D = GetNeighbors(q);
+                                ;
                                 if (D.Count >= minPts)
                                 {
                                     foreach (var d in D)
                                     {
                                         Q.Add(d);
                                     }
+                                    ;
                                 }
                             }
                         }
@@ -131,6 +138,8 @@ namespace hotspot_search_dbscan
             Console.BufferHeight = Console.WindowHeight;
 
             Console.Clear();
+
+            //klaszterek kirajzolása)
 
             foreach (var cluster in clusters)
             {
