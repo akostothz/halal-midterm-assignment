@@ -126,39 +126,6 @@ namespace hotspot_search_dbscan
 
         void DrawClusters(List<List<Point>> clusters)
         {
-            /*
-            for (int i = 0; i < clusters.Count; i++) //végigmegyünk a klasztereken egyesével
-            {
-                foreach (var point in clusters[i]) //majd a klaszter összes pontján
-                {
-                    point.SetColor(i); //és beállítjuk a különböző klasztereken belül a pontokat a megfelelő színükre
-                }
-            }
-
-            ;
-
-            //konzol magassága és szélességének beállítása
-            double maxX = clusters.SelectMany(cluster => cluster.Select(point => point.x)).Max();
-            double maxY = clusters.SelectMany(cluster => cluster.Select(point => point.y)).Max();
-
-            Console.WindowWidth = Math.Min(Console.LargestWindowWidth, (int)(maxX + 2));
-            Console.WindowHeight = Math.Min(Console.LargestWindowHeight, (int)(maxY + 2));
-
-            Console.BufferWidth = Console.WindowWidth;
-            Console.BufferHeight = Console.WindowHeight;
-
-            Console.Clear();
-
-            //klaszterek kirajzolása
-
-
-            foreach (var point in Points)
-            {
-                Console.SetCursorPosition((int)point.x, (int)point.y);
-                Console.ForegroundColor = point.Color;
-                Console.Write("*");
-            }
-            */
             for (int i = 0; i < clusters.Count; i++) //végigmegyünk a klasztereken egyesével
             {
                 Console.ForegroundColor = ConsoleColor.White;
@@ -198,7 +165,6 @@ namespace hotspot_search_dbscan
             this.isProcessed = false;
             this.Color = ConsoleColor.White;
         }
-        //lehet kell get is?
         public void SetProcessToTrue()
         {
             this.isProcessed = true;
