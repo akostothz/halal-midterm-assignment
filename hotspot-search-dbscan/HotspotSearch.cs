@@ -90,10 +90,7 @@ namespace hotspot_search_dbscan
 
         double DistanceFromPoint(Point p1, Point p2)
         {
-            return Math.Sqrt(
-                Math.Pow((p2.x - p1.x), 2) +
-                Math.Pow((p2.y - p1.y), 2)
-                );
+            return Math.Sqrt( Math.Pow((p2.x - p1.x), 2) + Math.Pow((p2.y - p1.y), 2) );
         }
 
         void LoadPointsFromFile(string filename)
