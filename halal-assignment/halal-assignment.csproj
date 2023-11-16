@@ -8,4 +8,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\hotspot-search-dbscan\hotspot-search-dbscan.csproj" />
+    <ProjectReference Include="..\image-segmentation-k-means\image-segmentation-k-means.csproj" />
+    <ProjectReference Include="..\polygon-problem-hill-climbing\polygon-problem-hill-climbing-stochastic.csproj" />
+  </ItemGroup>
+
 </Project>
