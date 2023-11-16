@@ -23,11 +23,10 @@ namespace hotspot_search_dbscan
         public void DoHotspotSearch(string filename)
         {
             LoadPointsFromFile(filename);
-            var C = DBSCAN();
-            DrawClusters(C);
+            DoDBSCAN();
         }
        
-        List<List<Point>> DBSCAN()
+        void DoDBSCAN()
         {
             var clusters = new List<List<Point>>();
             var I = new List<Point>(); //processed points
@@ -66,7 +65,7 @@ namespace hotspot_search_dbscan
                     }
                 }
             }
-            return clusters;
+            SaveClustersToFile(clusters);
         }
 
         bool ContainsPoint(List<Point> list, Point p)
@@ -124,31 +123,39 @@ namespace hotspot_search_dbscan
             }
         }
 
-        void DrawClusters(List<List<Point>> clusters)
+        void SaveClustersToFile(List<List<Point>> clusters)
         {
-            for (int i = 0; i < clusters.Count; i++) //végigmegyünk a klasztereken egyesével
+            using (StreamWriter writer = new StreamWriter("log-" + epsilon + "-" + minPts + ".txt", false))
             {
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine($"{i+1}. cluster: \n");
-                foreach (var point in clusters[i]) //majd a klaszter összes pontján
+                for (int i = 0; i < clusters.Count; i++) //végigmegyünk a klasztereken egyesével
                 {
-                    point.SetColor(i);
-                    Console.ForegroundColor = point.Color;
-                    Console.WriteLine($"({point.x};{point.y})"); //és kiíratjuk a klasztereket
+                    Console.ForegroundColor = ConsoleColor.White;
+                    writer.WriteLine($"{i + 1}. cluster: \n");
+                    Console.WriteLine($"{i + 1}. cluster: \n");
+                    foreach (var point in clusters[i]) //majd a klaszter összes pontján
+                    {
+                        point.SetColor(i);
+                        Console.ForegroundColor = point.Color;
+                        writer.WriteLine($"({point.x};{point.y})");
+                        Console.WriteLine($"({point.x};{point.y})"); //és kiíratjuk a klasztereket
+                    }
+                    writer.WriteLine("\n");
+                    Console.WriteLine("\n");
                 }
-                Console.WriteLine("\n");
+
+
+                Console.ForegroundColor = ConsoleColor.White;
+                writer.WriteLine("Points which does not fit into any cluster: \n");
+                Console.WriteLine("Points which does not fit into any cluster: \n");
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                foreach (var p in Points.Where(x => x.Color == ConsoleColor.White)) //kiíratjuk azokat a pontokat, amelyek egyik klaszterbe sem kerültek bele
+                {
+                    writer.WriteLine($"({p.x};{p.y})");
+                    Console.WriteLine($"({p.x};{p.y})");
+                }
             }
 
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Points which does not fit into any cluster: \n");
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            foreach (var p in Points.Where(x => x.Color == ConsoleColor.White)) //kiíratjuk azokat a pontokat, amelyek egyik klaszterbe sem kerültek bele
-            {
-
-                Console.WriteLine($"({p.x};{p.y})");
-            }
-
-            Console.ReadKey();
+            Console.ReadLine();
         }
     }
 
