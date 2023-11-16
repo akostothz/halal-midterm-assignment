@@ -112,7 +112,37 @@ namespace hotspot_search_dbscan
 
         void DrawClusters(List<List<Point>> clusters)
         {
-            //majd kirajzolni Console-ra -> egy for-ral végigmenni és az alapján baszakodni a színekkel
+            for (int i = 0; i < clusters.Count; i++) //végigmegyünk a klasztereken egyesével
+            {
+                foreach (var point in clusters[i]) //majd a klaszter összes pontján
+                {
+                    point.SetColor(i); //és beállítjuk a különböző klasztereken belül a pontokat a megfelelő színükre
+                }
+            }
+
+            //konzol magassága és szélességének beállítása
+            double maxX = clusters.SelectMany(cluster => cluster.Select(point => point.x)).Max();
+            double maxY = clusters.SelectMany(cluster => cluster.Select(point => point.y)).Max();
+
+            Console.WindowWidth = Math.Min(Console.LargestWindowWidth, (int)(maxX + 2));
+            Console.WindowHeight = Math.Min(Console.LargestWindowHeight, (int)(maxY + 2));
+
+            Console.BufferWidth = Console.WindowWidth;
+            Console.BufferHeight = Console.WindowHeight;
+
+            Console.Clear();
+
+            foreach (var cluster in clusters)
+            {
+                foreach (var point in cluster)
+                {
+                    Console.SetCursorPosition((int)point.x, (int)point.y);
+                    Console.ForegroundColor = point.Color;
+                    Console.Write("*");
+                }
+            }
+
+            Console.ReadKey();
         }
     }
 
@@ -131,13 +161,14 @@ namespace hotspot_search_dbscan
     {
         public double x { get; set; }
         public double y { get; set; }
-        public Color Color { get; set; }
+        public ConsoleColor Color { get; set; }
         public bool isProcessed { get; set; }
         public Point(double x, double y)
         {
             this.x = x;
             this.y = y;
             this.isProcessed = false;
+            this.Color = ConsoleColor.White;
         }
         //lehet kell get is?
         public void SetProcessToTrue()
@@ -150,28 +181,28 @@ namespace hotspot_search_dbscan
             switch (clusterValue)
             {
                 case 0:
-                    this.Color = Color.Red;
+                    this.Color = ConsoleColor.Red;
                     break;
                 case 1:
-                    this.Color = Color.DarkGreen;
+                    this.Color = ConsoleColor.DarkGreen;
                     break;
                 case 2:
-                    this.Color = Color.Cyan;
+                    this.Color = ConsoleColor.Cyan;
                     break;
                 case 3:
-                    this.Color = Color.DarkMagenta;
+                    this.Color = ConsoleColor.DarkMagenta;
                     break;
                 case 4:
-                    this.Color = Color.Blue;
+                    this.Color = ConsoleColor.Blue;
                     break;
                 case 5:
-                    this.Color = Color.Yellow;
+                    this.Color = ConsoleColor.Yellow;
                     break;
                 case 6:
-                    this.Color = Color.Green;
+                    this.Color = ConsoleColor.Green;
                     break;
                 default:
-                    this.Color = Color.White;
+                    this.Color = ConsoleColor.White;
                     break;
             }
 
