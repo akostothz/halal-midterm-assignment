@@ -49,5 +49,6 @@ példa a már lefutattott hotspotsearch-log-7-3.txt.
 >output: smallestboundary-log.txt fájl a nyerő koordinátákkal kimentve
 
 >rövid összefoglaló:	Bemenetei egy epszilon, egy errorMargin (bár ez használatlan maradt), a minimum fitness változási érték és a maximum fitness változási szám.
-			Az algoritmus megintcsak nagyon hasonló felépítésű, sőt a StopCondition is az órai kódban látható maradt.
+			Az algoritmus megintcsak nagyon hasonló felépítésű, sőt a StopCondition is az órai kódban látható maradt. A kimentett fájl mellet a konzolra
+			kiírja, hogy mennyi lett a fitness és, hogy ezt hanyadik számolásra csinálta meg.
 
