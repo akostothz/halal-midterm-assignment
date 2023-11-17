@@ -79,7 +79,7 @@ namespace polygon_problem_hill_climbing
 
         public void SavePointsToFile(List<Point> pointVector)
         {
-            using (StreamWriter writer = new StreamWriter("smallestboundary-log-" + epsilon + "-" + errorMargin + ".txt", false))
+            using (StreamWriter writer = new StreamWriter("smallestboundary-log.txt", false))
             {
                 foreach (Point pnt in pointVector)
                 {

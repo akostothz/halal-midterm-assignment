@@ -1,0 +1,53 @@
+Név: Tóth Ákos Zalán
+Neptun kód: UNN1N9
+Félév: 2023/24/1
+
+Megoldott problémák:
+
+1. Gócpontkeresés > DBSCAN módszerrel [hotspot-search-dbscan]
+2. Képszegmentáció > K-közép módszerrel [image-segmentation-k-means]
+3. Legkisebb befoglaló poligon > Hegymászó módszerrel (Sztochasztikus) [polygon-problem-hill-climbing]
+
+--------
+
+Bővebb leírások a megoldásokról:
+
+A 3 feladat külön projektként lett létrehozva és tesztelve, de hogy szépen egyben legyenek a hívásaik,
+így a 'halal-assignment' projektben található a 3 tesztelése/meghívása, valamint ezeknek az input/outputjuk.
+
+
+1. Gócpontkeresés / DBSCAN:
+
+>input: hspoints.txt fájl, 53db Pont koordinátával
+>output: hotspotsearch-log-epsilon-mintPts.txt formátumú txt, amiben ezen adatok alapján a kiválogatott klaszterek
+és azok elemeit tartalmazó fájl, valamint a végén az egyik klaszterbe sem férő pontok kerülnek kiírásra. Ehhez egy
+példa a már lefutattott hotspotsearch-log-7-3.txt.
+
+>rövid összefoglaló:	Bemenetei egy epsilon (milyen távolságban lehet max. a pont) és a mintPts változó (min. szomszéd száma).
+			Először betölti a pontokat, majd igazából minden az órán tanult algoritmus alapján csinál pontosan ugyan úgy.
+			Ehhez készült pár mellékfüggvény is, hogy szép és felismerhető maradjon a kód. Kimentésnél a klasztereken megy végig, majd
+			ha ezeket kiíratta, akkor a semmihez sem került pontokat, melyeket úgy különböztet meg, hogy egy eredetileg grafikai megjelenítés miatti 
+			színezés miatt minden klaszterhez van rendelve egy szín, és ami fehér maradt, az nincs klaszterben.
+
+--
+
+2. Képszegmentáció / K-Means:
+
+>input: 2 kép van példaként, "crazy.png" és "butterfly.png"
+>output: segmentedpic.png-ként menti el
+
+>rövid összefoglaló:	Bemenete egy kép, amelyet a megkapott ImageSegmentation osztály C#-os verziójával dolgoz fel, és Bitmap-ként tárolja el mindezt.
+			Minden más ebből az osztályból ekvivalens a megkapott osztállyal, egy plsuz metódussal bővült, ami a másik osztályban kiszámolt 
+			klaszter számát adja át ide. Itt is az algoritmus nagyon hasonlóan úgy működik, mint ahogy órán tanultuk, nincsenek nagy változtatások.
+			
+
+--
+
+3. Poligon probléma / Hill Climbing:
+
+>input: points.txt fájl, 11db pont koordinátával
+>output: smallestboundary-log.txt fájl a nyerő koordinátákkal kimentve
+
+>rövid összefoglaló:	Bemenetei egy epszilon, egy errorMargin (bár ez használatlan maradt), a minimum fitness változási érték és a maximum fitness változási szám.
+			Az algoritmus megintcsak nagyon hasonló felépítésű, sőt a StopCondition is az órai kódban látható maradt.
+
